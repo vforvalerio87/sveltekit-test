@@ -10,6 +10,7 @@
     "lint": "eslint --ignore-path .gitignore ."
   },
   "devDependencies": {
+    "@sveltejs/adapter-netlify": "^1.0.0-next.29",
     "@sveltejs/adapter-node": "^1.0.0-next.43",
     "@sveltejs/adapter-static": "^1.0.0-next.17",
     "@sveltejs/kit": "next",
