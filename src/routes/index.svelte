@@ -6,13 +6,19 @@
   let user, error, formValid, promise
 
   const inputs = {
-    "email": { "value": "", "required": true },
-    "password": { "value": "", "required": true }
+    "email": { "required": true, "value": "" },
+    "password": { "required": true, "value": "" }
   }
 
   function checkFormValidity (ev) { 
     inputs[ev.target.getAttribute("type")].value = ev.target.value
-    if (ev.target.validity.valid) ev.target.parentElement.removeAttribute("data-validity-message")
+
+    if (
+      ev.target.parentElement.getAttribute("data-validity-message") === REQUIRED_VALIDITY_MESSAGE && ev.target.value !== "" ||
+      ev.target.validity.valid
+    )
+      ev.target.parentElement.removeAttribute("data-validity-message")
+
     formValid = ev.target.form.checkValidity() 
   }
 
