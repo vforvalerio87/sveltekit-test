@@ -3,19 +3,28 @@
 
   const REQUIRED_VALIDITY_MESSAGE = "Required"
   const baseUrl = "https://api-staging.holyart.io/v1/users/login"
-  let user, error, formValid, promise, emailInput, passwordInput
+  let user, error, formValid, promise
+
+  const inputs = {
+    "email": { "value": "", "required": true },
+    "password": { "value": "", "required": true }
+  }
 
   function checkFormValidity (ev) { 
+    inputs[ev.target.getAttribute("type")].value = ev.target.value
+    if (ev.target.validity.valid) ev.target.parentElement.removeAttribute("data-validity-message")
+    formValid = ev.target.form.checkValidity() 
+  }
+
+  function setValidityMessages (ev) {
     if (ev.target.validity.valid) ev.target.parentElement.removeAttribute("data-validity-message")
     else if (ev.target.hasAttribute("required") && ev.target.value === "") ev.target.parentElement.setAttribute("data-validity-message", REQUIRED_VALIDITY_MESSAGE)
     else ev.target.parentElement.setAttribute("data-validity-message", "Invalid " + ev.target.getAttribute("type"))
-
-    formValid = ev.target.form.checkValidity() 
   }
 
   async function login () {
     return axios.post(baseUrl, {
-      "domainCode": "it", "email": emailInput.value, "password": passwordInput.value
+      "domainCode": "it", "email": inputs.email.value, "password": inputs.password.value
     })
     .then(res => {
       error = null
@@ -42,8 +51,9 @@
 
 {#if user == null}
   <form novalidate action={baseUrl} method="POST">
-    <label data-validity-message={REQUIRED_VALIDITY_MESSAGE}>Email <input required type="email" bind:this={emailInput} on:change={checkFormValidity}></label>
-    <label data-validity-message={REQUIRED_VALIDITY_MESSAGE}>Password <input required type="password" bind:this={passwordInput} on:change={checkFormValidity}></label>
+    {#each Object.entries(inputs) as [type, { value, required }]}
+      <label data-validity-message={required ? REQUIRED_VALIDITY_MESSAGE : null}>{type} <input {type} {required} on:input={checkFormValidity} on:change={setValidityMessages}></label>
+    {/each}
     <button disabled={!formValid} type="submit" on:click|preventDefault={() => { promise = login() }}>Login</button>
   </form>
 {/if}
@@ -62,6 +72,7 @@
 <style>
   label {
     display: block;
+    text-transform: capitalize;
   }
 
   input[type="email"], input[type="password"] {

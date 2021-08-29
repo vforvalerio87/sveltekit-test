@@ -4859,6 +4859,13 @@ var escaped2 = {
 function escape2(html) {
   return String(html).replace(/["'&<>]/g, (match) => escaped2[match]);
 }
+function each(items, fn) {
+  let str = "";
+  for (let i = 0; i < items.length; i += 1) {
+    str += fn(items[i], i);
+  }
+  return str;
+}
 var missing_component = {
   $$render: () => ""
 };
@@ -4975,9 +4982,9 @@ function init(settings = default_settings) {
     amp: false,
     dev: false,
     entry: {
-      file: assets + "/_app/start-c1c2497d.js",
+      file: assets + "/_app/start-f796e873.js",
       css: [assets + "/_app/assets/start-61d1577b.css"],
-      js: [assets + "/_app/start-c1c2497d.js", assets + "/_app/chunks/vendor-5114f9fb.js"]
+      js: [assets + "/_app/start-f796e873.js", assets + "/_app/chunks/vendor-80e51836.js"]
     },
     fetched: void 0,
     floc: false,
@@ -5036,7 +5043,7 @@ var module_lookup = {
     return index;
   })
 };
-var metadata_lookup = { ".svelte-kit/build/components/layout.svelte": { "entry": "layout.svelte-8e01ef97.js", "css": [], "js": ["layout.svelte-8e01ef97.js", "chunks/vendor-5114f9fb.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "error.svelte-89e63585.js", "css": [], "js": ["error.svelte-89e63585.js", "chunks/vendor-5114f9fb.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "pages/index.svelte-98096ae8.js", "css": ["assets/pages/index.svelte-5d3dc671.css"], "js": ["pages/index.svelte-98096ae8.js", "chunks/vendor-5114f9fb.js"], "styles": [] } };
+var metadata_lookup = { ".svelte-kit/build/components/layout.svelte": { "entry": "layout.svelte-b453e398.js", "css": [], "js": ["layout.svelte-b453e398.js", "chunks/vendor-80e51836.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "error.svelte-01c7adf4.js", "css": [], "js": ["error.svelte-01c7adf4.js", "chunks/vendor-80e51836.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "pages/index.svelte-d039f6c5.js", "css": ["assets/pages/index.svelte-f42ffd7e.css"], "js": ["pages/index.svelte-d039f6c5.js", "chunks/vendor-80e51836.js"], "styles": [] } };
 async function load_component(file) {
   const { entry, css: css2, js, styles } = metadata_lookup[file];
   return {
@@ -5087,8 +5094,8 @@ var error2 = /* @__PURE__ */ Object.freeze({
   load
 });
 var css = {
-  code: "input.svelte-62oktt:invalid+span.svelte-62oktt:after{content:attr(data-validity-message);padding-left:5px}",
-  map: '{"version":3,"file":"index.svelte","sources":["index.svelte"],"sourcesContent":["<script lang=\\"ts\\">var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\\n    return new (P || (P = Promise))(function (resolve, reject) {\\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\\n        function rejected(value) { try { step(generator[\\"throw\\"](value)); } catch (e) { reject(e); } }\\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\\n    });\\n};\\nimport axios from \\"axios\\";\\nconst REQUIRED_VALIDITY_MESSAGE = \\"Required\\";\\nconst baseUrl = \\"https://api-staging.holyart.io/v1/users/login\\";\\nlet user, error, formValid, promise, emailInput, passwordInput;\\nfunction checkFormValidity(ev) {\\n    const inputType = ev.target.getAttribute(\\"type\\");\\n    const validityMessageBox = ev.target.nextSibling;\\n    if (ev.target.hasAttribute(\\"required\\") && ev.target.value === \\"\\")\\n        validityMessageBox.setAttribute(\\"data-validity-message\\", REQUIRED_VALIDITY_MESSAGE);\\n    else\\n        validityMessageBox.setAttribute(\\"data-validity-message\\", \\"Invalid \\" + inputType);\\n    formValid = ev.target.form.checkValidity();\\n}\\nfunction login() {\\n    return __awaiter(this, void 0, void 0, function* () {\\n        return axios.post(baseUrl, {\\n            \\"domainCode\\": \\"it\\", \\"email\\": emailInput.value, \\"password\\": passwordInput.value\\n        })\\n            .then(res => {\\n            error = null;\\n            formValid = false;\\n            user = res.data;\\n        })\\n            .catch(err => {\\n            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;\\n            const detailedResponse = ((_c = (_b = (_a = err === null || err === void 0 ? void 0 : err.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.error) === null || _c === void 0 ? void 0 : _c.message) &&\\n                err.response.data.error.details &&\\n                Array.isArray(err.response.data.error.details) ?\\n                `${err.response.data.error.message}: ${err.response.data.error.details.map(field => field.message).join(\\", \\")}` :\\n                undefined;\\n            error = detailedResponse ||\\n                ((_g = (_f = (_e = (_d = err === null || err === void 0 ? void 0 : err.response) === null || _d === void 0 ? void 0 : _d.data) === null || _e === void 0 ? void 0 : _e.error) === null || _f === void 0 ? void 0 : _f.details) === null || _g === void 0 ? void 0 : _g.message) ||\\n                ((_k = (_j = (_h = err === null || err === void 0 ? void 0 : err.response) === null || _h === void 0 ? void 0 : _h.data) === null || _j === void 0 ? void 0 : _j.error) === null || _k === void 0 ? void 0 : _k.message) ||\\n                (err === null || err === void 0 ? void 0 : err.message) ||\\n                \\"There was an error with your request\\";\\n        });\\n    });\\n}\\nfunction logout() { user = null; }\\n<\/script>\\n\\n{#if user == null}\\n  <form novalidate action={baseUrl} method=\\"POST\\">\\n    <div>\\n      <label>Email <input required type=\\"email\\" bind:this={emailInput} on:input={checkFormValidity}><span data-validity-message={REQUIRED_VALIDITY_MESSAGE}></span></label>\\n    </div>\\n    <div>\\n      <label>Password <input required type=\\"password\\" bind:this={passwordInput} on:input={checkFormValidity}><span data-validity-message={REQUIRED_VALIDITY_MESSAGE}></span></label>\\n    </div>\\n    <button disabled={!formValid} type=\\"submit\\" on:click|preventDefault={() => { promise = login() }}>Login</button>\\n  </form>\\n{#await promise}\\n  <p>Loading...</p>\\n{/await}\\n{/if}\\n\\n\\n{#if error != null}\\n  <div>{error}</div>\\n{:else if user != null}\\n  <div>Hello {user.data?.firstName || \\"\\"}</div>\\n  <button on:click={logout}>Log out</button>\\n{/if}\\n\\n<style>\\n  input:invalid+span:after {\\n    content: attr(data-validity-message);\\n    padding-left: 5px;\\n  }\\n</style>"],"names":[],"mappings":"AA0EE,mBAAK,QAAQ,CAAC,kBAAI,MAAM,AAAC,CAAC,AACxB,OAAO,CAAE,KAAK,qBAAqB,CAAC,CACpC,YAAY,CAAE,GAAG,AACnB,CAAC"}'
+  code: 'label.svelte-i1v620{display:block;text-transform:capitalize}input[type="email"].svelte-i1v620,input[type="password"].svelte-i1v620{font-size:16px}label.svelte-i1v620:after{content:attr(data-validity-message);padding-left:5px}',
+  map: '{"version":3,"file":"index.svelte","sources":["index.svelte"],"sourcesContent":["<script lang=\\"ts\\">var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\\n    return new (P || (P = Promise))(function (resolve, reject) {\\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\\n        function rejected(value) { try { step(generator[\\"throw\\"](value)); } catch (e) { reject(e); } }\\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\\n    });\\n};\\nimport axios from \\"axios\\";\\nconst REQUIRED_VALIDITY_MESSAGE = \\"Required\\";\\nconst baseUrl = \\"https://api-staging.holyart.io/v1/users/login\\";\\nlet user, error, formValid, promise;\\nconst inputs = {\\n    \\"email\\": { \\"value\\": \\"\\", \\"required\\": true },\\n    \\"password\\": { \\"value\\": \\"\\", \\"required\\": true }\\n};\\nfunction checkFormValidity(ev) {\\n    inputs[ev.target.getAttribute(\\"type\\")].value = ev.target.value;\\n    if (ev.target.validity.valid)\\n        ev.target.parentElement.removeAttribute(\\"data-validity-message\\");\\n    else if (ev.target.hasAttribute(\\"required\\") && ev.target.value === \\"\\")\\n        ev.target.parentElement.setAttribute(\\"data-validity-message\\", REQUIRED_VALIDITY_MESSAGE);\\n    else\\n        ev.target.parentElement.setAttribute(\\"data-validity-message\\", \\"Invalid \\" + ev.target.getAttribute(\\"type\\"));\\n    formValid = ev.target.form.checkValidity();\\n}\\nfunction login() {\\n    return __awaiter(this, void 0, void 0, function* () {\\n        return axios.post(baseUrl, {\\n            \\"domainCode\\": \\"it\\", \\"email\\": inputs.email.value, \\"password\\": inputs.password.value\\n        })\\n            .then(res => {\\n            error = null;\\n            formValid = false;\\n            user = res.data;\\n        })\\n            .catch(err => {\\n            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;\\n            const detailedResponse = ((_c = (_b = (_a = err === null || err === void 0 ? void 0 : err.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.error) === null || _c === void 0 ? void 0 : _c.message) &&\\n                err.response.data.error.details &&\\n                Array.isArray(err.response.data.error.details) ?\\n                `${err.response.data.error.message}: ${err.response.data.error.details.map(field => field.message).join(\\", \\")}` :\\n                undefined;\\n            error = detailedResponse ||\\n                ((_g = (_f = (_e = (_d = err === null || err === void 0 ? void 0 : err.response) === null || _d === void 0 ? void 0 : _d.data) === null || _e === void 0 ? void 0 : _e.error) === null || _f === void 0 ? void 0 : _f.details) === null || _g === void 0 ? void 0 : _g.message) ||\\n                ((_k = (_j = (_h = err === null || err === void 0 ? void 0 : err.response) === null || _h === void 0 ? void 0 : _h.data) === null || _j === void 0 ? void 0 : _j.error) === null || _k === void 0 ? void 0 : _k.message) ||\\n                (err === null || err === void 0 ? void 0 : err.message) ||\\n                \\"There was an error with your request\\";\\n        });\\n    });\\n}\\nfunction logout() { user = null; }\\n<\/script>\\n\\n{#if user == null}\\n  <form novalidate action={baseUrl} method=\\"POST\\">\\n    {#each Object.entries(inputs) as [type, { value, required }]}\\n      <label data-validity-message={required ? REQUIRED_VALIDITY_MESSAGE : null}>{type} <input {type} {required} on:input={checkFormValidity}></label>\\n    {/each}\\n    <button disabled={!formValid} type=\\"submit\\" on:click|preventDefault={() => { promise = login() }}>Login</button>\\n  </form>\\n{/if}\\n\\n{#if error != null}\\n  <div>{error}</div>\\n{:else if user != null}\\n  <div>Hello {user.data?.firstName || \\"\\"}</div>\\n  <button on:click={logout}>Log out</button>\\n{/if}\\n\\n{#await promise}\\n  <p>Loading...</p>\\n{/await}\\n\\n<style>\\n  label {\\n    display: block;\\n    text-transform: capitalize;\\n  }\\n\\n  input[type=\\"email\\"], input[type=\\"password\\"] {\\n    font-size: 16px;\\n  }\\n\\n  label:after {\\n    content: attr(data-validity-message);\\n    padding-left: 5px;\\n  }\\n</style>"],"names":[],"mappings":"AA4EE,KAAK,cAAC,CAAC,AACL,OAAO,CAAE,KAAK,CACd,cAAc,CAAE,UAAU,AAC5B,CAAC,AAED,KAAK,CAAC,IAAI,CAAC,OAAO,eAAC,CAAE,KAAK,CAAC,IAAI,CAAC,UAAU,CAAC,cAAC,CAAC,AAC3C,SAAS,CAAE,IAAI,AACjB,CAAC,AAED,mBAAK,MAAM,AAAC,CAAC,AACX,OAAO,CAAE,KAAK,qBAAqB,CAAC,CACpC,YAAY,CAAE,GAAG,AACnB,CAAC"}'
 };
 var REQUIRED_VALIDITY_MESSAGE = "Required";
 var baseUrl = "https://api-staging.holyart.io/v1/users/login";
@@ -5120,11 +5127,17 @@ var Routes = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
   });
-  let promise, emailInput, passwordInput;
+  let promise;
+  const inputs = {
+    "email": { "value": "", "required": true },
+    "password": { "value": "", "required": true }
+  };
   $$result.css.add(css);
-  return `${`<form novalidate${add_attribute("action", baseUrl, 0)} method="${"POST"}"><div><label>Email <input required type="${"email"}" class="${"svelte-62oktt"}"${add_attribute("this", emailInput, 0)}><span${add_attribute("data-validity-message", REQUIRED_VALIDITY_MESSAGE, 0)} class="${"svelte-62oktt"}"></span></label></div>
-    <div><label>Password <input required type="${"password"}" class="${"svelte-62oktt"}"${add_attribute("this", passwordInput, 0)}><span${add_attribute("data-validity-message", REQUIRED_VALIDITY_MESSAGE, 0)} class="${"svelte-62oktt"}"></span></label></div>
-    <button ${"disabled"} type="${"submit"}">Login</button></form>
+  return `${`<form novalidate${add_attribute("action", baseUrl, 0)} method="${"POST"}">${each(Object.entries(inputs), ([type, { value, required }]) => `<label${add_attribute("data-validity-message", required ? REQUIRED_VALIDITY_MESSAGE : null, 0)} class="${"svelte-i1v620"}">${escape2(type)} <input${add_attribute("type", type, 0)} ${required ? "required" : ""} class="${"svelte-i1v620"}"></label>`)}
+    <button ${"disabled"} type="${"submit"}">Login</button></form>`}
+
+${`${``}`}
+
 ${function(__value) {
     if (is_promise(__value))
       return `
@@ -5133,10 +5146,7 @@ ${function(__value) {
     return function() {
       return ``;
     }();
-  }(promise)}`}
-
-
-${`${``}`}`;
+  }(promise)}`;
 });
 var index = /* @__PURE__ */ Object.freeze({
   __proto__: null,
