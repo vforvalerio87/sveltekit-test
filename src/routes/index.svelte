@@ -6,13 +6,9 @@
   let user, error, formValid, promise, emailInput, passwordInput
 
   function checkFormValidity (ev) { 
-    const inputType = ev.target.getAttribute("type")
-    const validityMessageBox = ev.target.nextSibling
-
-    if (ev.target.hasAttribute("required") && ev.target.value === "")
-      validityMessageBox.setAttribute("data-validity-message", REQUIRED_VALIDITY_MESSAGE)
-    else
-      validityMessageBox.setAttribute("data-validity-message", "Invalid " + inputType)
+    if (ev.target.validity.valid) ev.target.parentElement.removeAttribute("data-validity-message")
+    else if (ev.target.hasAttribute("required") && ev.target.value === "") ev.target.parentElement.setAttribute("data-validity-message", REQUIRED_VALIDITY_MESSAGE)
+    else ev.target.parentElement.setAttribute("data-validity-message", "Invalid " + ev.target.getAttribute("type"))
 
     formValid = ev.target.form.checkValidity() 
   }
@@ -46,19 +42,11 @@
 
 {#if user == null}
   <form novalidate action={baseUrl} method="POST">
-    <div>
-      <label>Email <input required type="email" bind:this={emailInput} on:input={checkFormValidity}><span data-validity-message={REQUIRED_VALIDITY_MESSAGE}></span></label>
-    </div>
-    <div>
-      <label>Password <input required type="password" bind:this={passwordInput} on:input={checkFormValidity}><span data-validity-message={REQUIRED_VALIDITY_MESSAGE}></span></label>
-    </div>
+    <label data-validity-message={REQUIRED_VALIDITY_MESSAGE}>Email <input required type="email" bind:this={emailInput} on:change={checkFormValidity}></label>
+    <label data-validity-message={REQUIRED_VALIDITY_MESSAGE}>Password <input required type="password" bind:this={passwordInput} on:change={checkFormValidity}></label>
     <button disabled={!formValid} type="submit" on:click|preventDefault={() => { promise = login() }}>Login</button>
   </form>
-{#await promise}
-  <p>Loading...</p>
-{/await}
 {/if}
-
 
 {#if error != null}
   <div>{error}</div>
@@ -67,13 +55,20 @@
   <button on:click={logout}>Log out</button>
 {/if}
 
+{#await promise}
+  <p>Loading...</p>
+{/await}
+
 <style>
-  input[type="email"],
-  input[type="password"] {
+  label {
+    display: block;
+  }
+
+  input[type="email"], input[type="password"] {
     font-size: 16px;
   }
 
-  input:invalid+span:after {
+  label:after {
     content: attr(data-validity-message);
     padding-left: 5px;
   }
