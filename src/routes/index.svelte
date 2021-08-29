@@ -58,7 +58,7 @@
 {#if user == null}
   <form novalidate action={baseUrl} method="POST">
     {#each Object.entries(inputs) as [type, { value, required }]}
-      <label data-validity-message={required ? REQUIRED_VALIDITY_MESSAGE : null}>{type} <input {type} {required} on:input={checkFormValidity} on:change={setValidityMessages}></label>
+      <label data-validity-message={required ? REQUIRED_VALIDITY_MESSAGE : null}>{type} <input {type} {required} on:input={checkFormValidity} on:blur={setValidityMessages}></label>
     {/each}
     <button disabled={!formValid} type="submit" on:click|preventDefault={() => { promise = login() }}>Login</button>
   </form>
