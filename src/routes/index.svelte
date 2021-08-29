@@ -68,6 +68,11 @@
 {/if}
 
 <style>
+  input[type="email"],
+  input[type="password"] {
+    font-size: 16px;
+  }
+
   input:invalid+span:after {
     content: attr(data-validity-message);
     padding-left: 5px;
